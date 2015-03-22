@@ -8,9 +8,9 @@ class UrlMappings {
         }
 
 		"/"(controller:"main",action:"index")
-		"/login"(controller:"main",action:"login")
-		"/register"(controller:"main",action:"register")
-		"/forget-pwd"(controller:"main",action:"forgetPwd")
+		"/login"(controller:"login",action:"index")
+		"/register"(controller:"login",action:"register")
+		"/forget-pwd"(controller:"login",action:"forgetPwd")
 		"500"(view:'/error')
     }
 }

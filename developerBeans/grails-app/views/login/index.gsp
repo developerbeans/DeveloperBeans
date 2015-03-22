@@ -12,33 +12,39 @@
   </head>
   <body>
 
-  <g:render template="/header"/>
+  <g:render template="/loginHeader"/>
   <!-- /navbar -->
 
   <div class="wrapper">
     <div class="container">
       <div class="row">
         <div class="module module-login span4 offset4">
-       
-          <form class="form-vertical">
+
+          <g:form controller="login" action="auth" class="form-vertical" type="POST">
             <div class="module-head">
               <h3>Sign In</h3>
             </div>
             <div class="module-body">
               <g:if test="${flash.message}">
-                <div class="control-group">
+                <div id="flashMessage" class="control-group">
                   <div class="controls row-fluid">
                     <div class="alert alert-error">
-                      <button type="button" class="close" data-dismiss="alert">×</button>
-                      <strong>Oh snap!</strong> ${flash.message}
+${flash.message}
                     </div>
-
                   </div>
                 </div>
               </g:if>
+
+              <div id="error-div" style="display:none" class="control-group">
+                <div class="controls row-fluid">
+                  <div id="error-message" class="alert alert-error">
+${flash.message}
+                  </div>
+                </div>
+              </div>
               <div class="control-group">
                 <div class="controls row-fluid">
-                  <input class="span12" type="text" id="inputEmail" name="inputEmail" placeholder="Username">
+                  <input class="span12" type="text" id="inputEmail" name="inputEmail" placeholder="Email">
                 </div>
               </div>
               <div class="control-group">
@@ -50,15 +56,11 @@
             <div class="module-foot">
               <div class="control-group">
                 <div class="controls clearfix">
-                  <!--<a role="button" class="btn btn-primary pull-right" href="${request.getContextPath()}/admin/dashboard">Login</a>-->
-                  <button type="submit" class="btn btn-primary pull-right">Login</button>
-                  <!--                    <label class="checkbox">
-                                        <input type="checkbox"> Remember me
-                                      </label>-->
+                  <input type="submit" onclick="return validateUserDetails()" class="btn btn-primary pull-right" value="Login"/>
                 </div>
               </div>
             </div>
-          </form>
+          </g:form>
         </div>
       </div>
     </div>
@@ -68,4 +70,5 @@
   <script src="${resource(dir: 'js/main', file: 'jquery-1.9.1.min.js')}" type="text/javascript"></script>
   <script src="${resource(dir: 'js/main', file: 'jquery-ui-1.10.1.custom.min.js')}" type="text/javascript"></script>
   <script src="${resource(dir: 'js/main', file: 'bootstrap.min.js')}" type="text/javascript"></script>
+  <script src="${resource(dir: 'js/main', file: 'validation.js')}" type="text/javascript"></script>
 </body>
