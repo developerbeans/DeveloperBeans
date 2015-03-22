@@ -11,6 +11,10 @@ class User {
     static hasOne = [profile: Profile]
     static hasMany = [projects: Project,posts:Post]
     
+//    def beforeInsert() {
+//        this.userId = new Date().getTime()
+//    }
+    
     static constraints = {
         primaryEmail(unique:true,email:true,blank:false)
         userId(unique:true,blank:false)
