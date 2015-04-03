@@ -1,12 +1,15 @@
+
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if IE 9 ]><html class="ie ie9" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
-
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <!-- Mobile Specific Metas -->
+
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
     <meta name="layout" content="main1">
     <title>Developer Beans</title>
     <link type="text/css" href="${resource(dir: 'css', file: 'style.css')}" rel="stylesheet">
@@ -15,110 +18,60 @@
 
   </head>
   <body>
+
     <div class="loader"><div class="loader_html"></div></div>
 
     <div id="wrap" class="grid_1200">
 
       <g:render template="/header"/>
 
-      <div class="section-warp ask-me">
-        <div class="container clearfix">
-          <div class="box_icon box_warp box_no_border box_no_background" box_border="transparent" box_background="transparent" box_color="#FFF">
-            <div class="row">
-              <div class="col-md-12">
-                <h2>Welcome to Developer Beans, Awesome Plugins & Answer Questions..</h2>
-                <p>Duis dapibus aliquam mi, eget euismod sem scelerisque ut. Vivamus at elit quis urna adipiscing iaculis. Curabitur vitae velit in neque dictum blandit. Proin in iaculis neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur vitae velit in neque dictum blandit.</p>
-                <div class="clearfix"></div>
-                <a class="color button dark_button medium" href="#">About Us</a>
-                <a class="color button dark_button medium" href="#">Join Now</a>
-                <div class="clearfix"></div>
-                <form class="form-style form-style-2">
-                  <p>
-                    <input type="text" id="question_title" value="Ask any question and you be sure find your answer ?" onfocus="if(this.value=='Ask any question and you be sure find your answer ?')this.value='';" onblur="if(this.value=='')this.value='Ask any question and you be sure find your answer ?';">
-                    <i class="icon-pencil"></i>
-                    <span class="color button small publish-question">Ask Now</span>
-                  </p>
-                </form>
+      <div class="breadcrumbs">
+        <section class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h1>Questions Category</h1>
+            </div>
+            <div class="col-md-12">
+              <div class="crumbs">
+                <a href="#">Home</a>
+                <span class="crumbs-span">/</span>
+                <span class="current">Questions Category</span>
               </div>
-            </div><!-- End row -->
-          </div><!-- End box_icon -->
-        </div><!-- End container -->
-      </div><!-- End section-warp -->
+            </div>
+          </div><!-- End row -->
+        </section><!-- End container -->
+      </div><!-- End breadcrumbs -->
 
       <section class="container main-content">
         <div class="row">
           <div class="col-md-9">
-
-            <div class="tabs-warp question-tab">
-              <ul class="tabs">
-                <li class="tab"><a href="#" class="current">Plugins</a></li>
-                <li class="tab"><a href="#">Questions</a></li>
-              </ul>
-              <div class="tab-inner-warp">
-                <div class="tab-inner">
-                  <g:each in="${projects}" var="project" status="j">
-                    <article class="question question-type-normal">
-                      <h2>
-                        <a href="single_question.html">${project.name}</a>
-                      </h2>
-                      <a class="question-report" href="#">Report</a>
-                      <div class="question-type-main"><i class="icon-question-sign"></i>Question</div>
-                      <div class="question-author">
-                        <a href="#" original-title="${project.user.displayName}" class="question-author-img tooltip-n"><span></span><img alt="" src="${project.user.profile.profilePic}"></a>
-                      </div>
-                      <div class="question-inner">
-                        <div class="clearfix"></div>
-                        <p class="question-desc">${project.shortDescription}</p>
-                        <div class="question-details">
-                          <span class="question-answered"><i class="icon-ok"></i>in progress</span>
-                          <span class="question-favorite"><i class="icon-star"></i>5</span>
-                        </div>
-                        <span class="question-category"><a href="#"><i class="icon-folder-close"></i>${project.tags}</a></span>
-                        <span class="question-date"><i class="icon-time"></i><g:formatDate date="${project.createdOn}" format="MMM dd, yyyy"/></span>
-                        <span class="question-comment"><a href="#"><i class="icon-download"></i>${project.downloads} Downloads</a></span>
-                        <span class="question-view"><i class="icon-user"></i>${project.views} views</span>
-                        <div class="clearfix"></div>
-                      </div>
-                    </article>
-                  </g:each>
-
-                  <a href="#" class="load-questions"><i class="icon-refresh"></i>Load More Questions</a>
+            <g:each in="${posts}" var="post" status="i">
+              <article class="question question-type-normal">
+                <h2>
+                  <g:link controller="question" action="detail" id="${post.id}">${post.title}</g:link>
+                </h2>
+                <a class="question-report" href="#">Report</a>
+                <div class="question-type-main"><i class="icon-question-sign"></i>Question</div>
+                <div class="question-author">
+                  <a href="#" original-title="${post.user.displayName}" class="question-author-img tooltip-n"><span></span><img alt="" src="${post.user.profile.profilePic}"></a>
                 </div>
-              </div>
-              <div class="tab-inner-warp">
-                <div class="tab-inner">
-                  <g:each in="${posts}" var="post" status="i">
-                    <article class="question question-type-normal">
-                      <h2>
-                        <a href="single_question.html">${post.title}</a>
-                      </h2>
-                      <a class="question-report" href="#">Report</a>
-                      <div class="question-type-main"><i class="icon-question-sign"></i>Question</div>
-                      <div class="question-author">
-                        <a href="#" original-title="${post.user.displayName}" class="question-author-img tooltip-n"><span></span><img alt="" src="${post.user.profile.profilePic}"></a>
-                      </div>
-                      <div class="question-inner">
-                        <div class="clearfix"></div>
-                        <p class="question-desc">${post.content}</p>
-                        <div class="question-details">
-                          <span class="question-answered"><i class="icon-ok"></i>in progress</span>
-                          <span class="question-favorite"><i class="icon-star"></i>5</span>
-                        </div>
-                        <span class="question-category"><a href="#"><i class="icon-folder-close"></i>${post.tags}</a></span>
-                        <span class="question-date"><i class="icon-time"></i><g:formatDate date="${post.createdOn}" format="MMM dd, yyyy"/></span>
-                        <span class="question-comment"><a href="#"><i class="icon-comment"></i>${post.getPostComments().size()} Answer</a></span>
-                        <span class="question-view"><i class="icon-user"></i>${post.views} views</span>
-                        <div class="clearfix"></div>
-                      </div>
-                    </article>
-                  </g:each>
-
-                  <a href="#" class="load-questions"><i class="icon-refresh"></i>Load More Questions</a>
+                <div class="question-inner">
+                  <div class="clearfix"></div>
+                  <p class="question-desc">${post.content}</p>
+                  <div class="question-details">
+                    <span class="question-answered"><i class="icon-ok"></i>in progress</span>
+                    <span class="question-favorite"><i class="icon-star"></i>5</span>
+                  </div>
+                  <span class="question-category"><a href="#"><i class="icon-folder-close"></i>${post.tags}</a></span>
+                  <span class="question-date"><i class="icon-time"></i><g:formatDate date="${post.createdOn}" format="MMM dd, yyyy"/></span>
+                  <span class="question-comment"><a href="#"><i class="icon-comment"></i>${post.getPostComments().size()} Answer</a></span>
+                  <span class="question-view"><i class="icon-user"></i>${post.views} views</span>
+                  <div class="clearfix"></div>
                 </div>
-              </div>
+              </article>
+            </g:each>
 
-
-            </div><!-- End page-content -->
+            <a href="#" class="load-questions"><i class="icon-refresh"></i>Load More Questions</a>
           </div><!-- End main -->
           <aside class="col-md-3 sidebar">
             <div class="widget widget_stats">
@@ -126,7 +79,7 @@
               <div class="ul_list ul_list-icon-ok">
                 <ul>
                   <li><i class="icon-question-sign"></i>Questions ( <span>20</span> )</li>
-                  <li><i class="icon-comment"></i>Plugins ( <span>50</span> )</li>
+                  <li><i class="icon-comment"></i>Answers ( <span>50</span> )</li>
                 </ul>
               </div>
             </div>
@@ -263,7 +216,9 @@
 
       <g:render template="/footer"/>
     </div><!-- End wrap -->
- <div class="go-up"><i class="icon-chevron-up"></i></div>
+
+    <div class="go-up"><i class="icon-chevron-up"></i></div>
+
     <script src="${resource(dir: 'js', file: 'jquery.min.js')}" type="text/javascript"></script>
     <script src="${resource(dir: 'js', file: 'jquery-ui-1.10.3.custom.min.js')}" type="text/javascript"></script>
     <script src="${resource(dir: 'js', file: 'jquery.easing.1.3.min.js')}" type="text/javascript"></script>
@@ -281,6 +236,7 @@
     <script src="${resource(dir: 'js', file: 'tags.js')}" type="text/javascript"></script>
     <script src="${resource(dir: 'js', file: 'jquery.bxslider.min.js')}" type="text/javascript"></script>
     <script src="${resource(dir: 'js', file: 'custom.js')}" type="text/javascript"></script>
+    <!-- End js -->
 
   </body>
 </html>
