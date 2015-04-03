@@ -30,8 +30,8 @@ class LoginController {
     
     def forget(){
         if(!params.inputEmail){
-            flash.message = "Please Fill out All Fields."
-            redirect(action: "forgetPwd")
+            render(status: 400, text: "Please Fill out All Fields.")
+            return
         }else{
             def userInstance = User.findByPrimaryEmail(params.inputEmail)
             if(userInstance){
@@ -45,29 +45,28 @@ class LoginController {
                 content.body = mailBody
                 userInstance.password = defaultPassword.encodeAsSHA256()
                 if (userInstance.save()) {
-                    flash.message = "Your New Password has been sent to your email."
                     notificationService.sendEmail(params.inputEmail,content)
-                    redirect(action: "forgetPwd")
+                    render(status: 200, text: "Your New Password has been sent to your email.")
+                    return 
                 }else{
-                    flash.message = "Please try after some time."
-                    redirect(action: "forgetPwd")
+                    render(status: 500, text: "Please try after some time.")
+                    return 
                 }
             }else{
-                flash.message = "Email is not register with us."
-                redirect(action: "forgetPwd")
+                render(status: 404, text: "Email is not register with us.")
+                return 
             }
         }
     }
     
     def saveUser(){
         if(!params.inputEmail || !params.inputPassword || !params.displayName){
-            flash.message = "Please Fill out All Fields."
-            redirect(action: "register")
+            render(status: 400, text: "Please Fill out All Fields.")
+            return
         }else{
             def userInstance = User.findByPrimaryEmail(params.inputEmail)
             if(userInstance){
-                flash.message = "Email already register with other account."
-                redirect(action: "register")
+                render(status: 400, text: "Email already register with other account.")
                 return
             }
             String ipAddress =  request.getHeader("X-Forwarded-For");
@@ -78,15 +77,15 @@ class LoginController {
             userInstance.primaryEmail = params.inputEmail
             userInstance.password = params.inputPassword.encodeAsSHA256()
             userInstance.displayName = params.displayName
-            userInstance.userId = params.displayName // Need to be done 
+            userInstance.userId = new Date().getTime() // Need to be done 
             userInstance.status = "ENABLE"
             userInstance.type = "FREE"
             userInstance.sourceIp = ipAddress
             userInstance.source = "WEBSITE"
             if (!userInstance.save()) {
                 userInstance.errors.allErrors.each { println it }
-                flash.message = "User Not Saved."
-                redirect(action: "register")
+                render(status: 400, text: "User Not Saved.")
+                return
             }else{
                 def mailSubject = "Successfully Register.."
                 def mailBody = "Dear User ${params.displayName}, Thanks for register with us."

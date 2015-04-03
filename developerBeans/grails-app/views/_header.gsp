@@ -3,7 +3,13 @@
     <nav class="header-top-nav">
       <ul>
         <li><a href="#"><i class="icon-headphones"></i>Notifications</a></li>
-        <li><g:link controller="login" action="index"><i class="icon-user"></i>Login</g:link></li>
+        <g:if test="${!session["user"]}">
+          <li><g:link controller="login" action="index"><i class="icon-user"></i>Login</g:link></li>
+        </g:if>
+        <g:if test="${session["user"]}">
+          <li><g:link controller="login" action="logout"><i class="icon-exclamation-sign"></i>Logout</g:link></li>
+          <li><a href="#"><i class="icon-user"></i>${session["user"]}</a></li>
+        </g:if>
       </ul>
     </nav>
   </section><!-- End container -->
