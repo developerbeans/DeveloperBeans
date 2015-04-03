@@ -20,6 +20,7 @@ class LoginController {
             def userInstance = User.findByPrimaryEmailAndPassword(params.inputEmail,params.inputPassword.encodeAsSHA256())
             if(userInstance){
                 redirect(controller:"main",action:"index")
+                session["user"] = userInstance.displayName
             }else{
                 flash.message = "Email or Password are not match."
                 redirect(action: "index")
@@ -93,8 +94,14 @@ class LoginController {
                 content.subject = mailSubject
                 content.body = mailBody
                 notificationService.sendEmail(params.inputEmail,content)
+                session["user"] = userInstance.displayName
                 redirect(controller:"main",action:"index")
             }
         }
+    }
+    
+    def logout(){
+        session.invalidate()
+        redirect(controller:"main",action:"index")
     }
 }
