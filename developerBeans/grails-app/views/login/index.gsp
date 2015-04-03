@@ -19,57 +19,63 @@
 
     <div id="wrap" class="grid_1200">
       <div class="panel-pop" id="signup">
+        <div class="loader" id="res_loader"><div class="loader_html"></div></div>
         <h2>Register Now<i class="icon-remove"></i></h2>
+        <div id="error-div" style="display:none" class="alert-message error">
+          <p><span id="error-message">success message</span><br>
+        </div>
         <div class="form-style form-style-3">
-          <form>
-            <div class="form-inputs clearfix">
-              <p>
-                <label class="required">Username<span>*</span></label>
-                <input type="text">
-              </p>
-              <p>
-                <label class="required">E-Mail<span>*</span></label>
-                <input type="email">
-              </p>
-              <p>
-                <label class="required">Password<span>*</span></label>
-                <input type="password" value="">
-              </p>
-              <p>
-                <label class="required">Confirm Password<span>*</span></label>
-                <input type="password" value="">
-              </p>
-            </div>
-            <p class="form-submit">
-              <input type="submit" value="Signup" class="button color small submit">
+          <div class="form-inputs clearfix">
+            <p>
+              <label class="required">Display Name<span>*</span></label>
+              <input  type="text" id="displayName" name="displayName" placeholder="Display Name">
             </p>
-          </form>
+            <p>
+              <label class="required">E-Mail<span>*</span></label>
+              <input  type="text" id="inputEmail" name="inputEmail" placeholder="Email">
+            </p>
+            <p>
+              <label class="required">Password<span>*</span></label>
+              <input  type="password" id="inputPassword" name="inputPassword" placeholder="Password">
+            </p>
+            <p>
+              <label class="required">Confirm Password<span>*</span></label>
+              <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+            </p>
+          </div>
+          <p class="form-submit">
+            <input type="button" onclick="return validateNewUserDetails()" value="Signup" class="button color small submit">
+          </p>
         </div>
       </div><!-- End signup -->
 
       <div class="panel-pop" id="lost-password">
+        <div class="loader" id="fog_loader"><div class="loader_html"></div></div>
+        
         <h2>Lost Password<i class="icon-remove"></i></h2>
+
+        <div id="error-div-fog-success" style="display:none" class="alert-message success">
+          <p><span id="error-message-fog-success">success message</span><br>
+        </div>
+
+        <div id="error-div-fog" style="display:none" class="alert-message error">
+          <p><span id="error-message-fog">success message</span><br>
+        </div>
         <div class="form-style form-style-3">
           <p>Lost your password? Please enter your username and email address. You will receive a link to create a new password via email.</p>
-          <form>
-            <div class="form-inputs clearfix">
-              <p>
-                <label class="required">Username<span>*</span></label>
-                <input type="text">
-              </p>
-              <p>
-                <label class="required">E-Mail<span>*</span></label>
-                <input type="email">
-              </p>
-            </div>
-            <p class="form-submit">
-              <input type="submit" value="Reset" class="button color small submit">
+          <div class="form-inputs clearfix">
+            <p>
+              <label class="required">E-Mail<span>*</span></label>
+              <input class="span12" type="text" id="inputEmail-fog" name="inputEmail-fog" placeholder="Email">
             </p>
-          </form>
+          </div>
+          <p class="form-submit">
+            <input type="button" onclick="return validateforgetDetails()" value="Reset" class="button color small submit">
+          </p>
           <div class="clearfix"></div>
         </div>
       </div><!-- End lost-password -->
-      
+
       <g:render template="/header"/>
 
       <div class="breadcrumbs">
@@ -78,15 +84,15 @@
             <div class="col-md-12">
               <h1>Login</h1>
             </div>
-<!--            <div class="col-md-12">
-              <div class="crumbs">
-                <a href="#">Home</a>
-                <span class="crumbs-span">/</span>
-                <a href="#">Pages</a>
-                <span class="crumbs-span">/</span>
-                <span class="current">Login</span>
-              </div>
-            </div>-->
+            <!--            <div class="col-md-12">
+                          <div class="crumbs">
+                            <a href="#">Home</a>
+                            <span class="crumbs-span">/</span>
+                            <a href="#">Pages</a>
+                            <span class="crumbs-span">/</span>
+                            <span class="current">Login</span>
+                          </div>
+                        </div>-->
           </div><!-- End row -->
         </section><!-- End container -->
       </div><!-- End breadcrumbs -->
@@ -97,26 +103,34 @@
             <div class="col-md-6">
               <div class="page-content">
                 <h2>Login</h2>
+
+                <div id="error-div-login" style="display:none" class="alert-message error">
+                  <p><span id="error-message-login">success message</span><br>
+                </div>
+
+                <g:if test="${flash.message}">
+                  <div id="flashMessage"  class="alert-message error">
+                    <p><span id="error-message">${flash.message}</span><br>
+                  </div>
+                </g:if>
+
                 <div class="form-style form-style-3">
-                  <form>
+                  <g:form controller="login" action="auth" type="POST">
                     <div class="form-inputs clearfix">
                       <p class="login-text">
-                        <input type="text" value="Username" onfocus="if (this.value == 'Username') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Username';}">
+                        <input type="text" value="Email" id="inputEmail-login" name="inputEmail" onfocus="if (this.value == 'Email') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Username';}">
                         <i class="icon-user"></i>
                       </p>
                       <p class="login-password">
-                        <input type="password" value="Password" onfocus="if (this.value == 'Password') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Password';}">
+                        <input type="password" value="Password" id="inputPassword-login" name="inputPassword" onfocus="if (this.value == 'Password') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Password';}">
                         <i class="icon-lock"></i>
                         <a href="#">Forget</a>
                       </p>
                     </div>
                     <p class="form-submit login-submit">
-                      <input type="submit" value="Log in" class="button color small login-submit submit">
+                      <input type="submit" value="Log in" onclick="return validateUserDetails()" class="button color small login-submit submit">
                     </p>
-                    <div class="rememberme">
-                      <label><input type="checkbox" checked="checked"> Remember Me</label>
-                    </div>
-                  </form>
+                  </g:form>
                 </div>
               </div><!-- End page-content -->
             </div><!-- End col-md-6 -->
@@ -134,7 +148,7 @@
       <g:render template="/footer"/>
     </div><!-- End wrap -->
 
-
+    <div class="go-up"><i class="icon-chevron-up"></i></div>
     <script src="${resource(dir: 'js', file: 'jquery.min.js')}" type="text/javascript"></script>
     <script src="${resource(dir: 'js', file: 'jquery-ui-1.10.3.custom.min.js')}" type="text/javascript"></script>
     <script src="${resource(dir: 'js', file: 'jquery.easing.1.3.min.js')}" type="text/javascript"></script>
@@ -152,6 +166,7 @@
     <script src="${resource(dir: 'js', file: 'tags.js')}" type="text/javascript"></script>
     <script src="${resource(dir: 'js', file: 'jquery.bxslider.min.js')}" type="text/javascript"></script>
     <script src="${resource(dir: 'js', file: 'custom.js')}" type="text/javascript"></script>
+    <script src="${resource(dir: 'js/custom', file: 'validation.js')}" type="text/javascript"></script>
 
   </body>
 </html>
